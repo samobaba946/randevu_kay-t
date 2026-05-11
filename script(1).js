@@ -6,6 +6,10 @@
 (function () {
   'use strict';
 
+  // Signal to CSS that JS is running (enables reveal animations).
+  // If JS fails/blocks for any reason, content stays visible without animations.
+  document.documentElement.classList.add('js-ready');
+
   // ----- Year in footer -----
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -113,6 +117,11 @@
   })(window, 'https://app.cal.com/embed/embed.js', 'init');
 
   try {
+    // Detect if user hasn't yet replaced the placeholder username
+    if (CAL_USERNAME === 'kullanici-adin') {
+      throw new Error('CAL_USERNAME henüz ayarlanmadı');
+    }
+
     window.Cal('init', 'atelier', { origin: 'https://cal.com' });
 
     window.Cal.ns.atelier('inline', {
@@ -145,18 +154,33 @@
       layout: 'month_view'
     });
   } catch (err) {
-    console.warn('[Atelier] Cal.com yüklenemedi:', err);
+    console.warn('[Atelier] Cal.com yüklenemedi:', err.message);
     const target = document.getElementById('cal-inline');
     if (target) {
       target.innerHTML = `
-        <div style="padding:3rem 1.5rem; text-align:center;">
-          <p style="font-family: var(--font-display); font-size: 1.4rem; color: var(--accent); margin-bottom: 1rem;">
-            Randevu sistemi henüz yapılandırılmadı
+        <div class="cal-fallback">
+          <div class="cal-fallback__icon">
+            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+              <rect x="3" y="4" width="18" height="18" rx="2"/>
+              <path d="M16 2v4M8 2v4M3 10h18"/>
+              <circle cx="12" cy="15" r="2"/>
+            </svg>
+          </div>
+          <h3 class="cal-fallback__title">Randevu için bizi arayın</h3>
+          <p class="cal-fallback__text">
+            Online randevu sistemi yakında aktif olacak. Şimdilik randevu için
+            telefon veya WhatsApp üzerinden ulaşabilirsiniz.
           </p>
-          <p style="color: var(--text-dim); max-width: 480px; margin: 0 auto;">
-            <code style="background: var(--bg-3); padding: 2px 6px; border-radius: 3px;">script.js</code>
-            dosyasında <code style="background: var(--bg-3); padding: 2px 6px; border-radius: 3px;">CAL_USERNAME</code>
-            değerini Cal.com kullanıcı adınla değiştir.
+          <div class="cal-fallback__actions">
+            <a href="tel:+902121234567" class="btn btn--primary">
+              <span>Telefonla Ara</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.37 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.33 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg>
+            </a>
+            <a href="https://wa.me/902121234567" target="_blank" rel="noopener" class="btn btn--ghost">WhatsApp</a>
+          </div>
+          <p class="cal-fallback__note">
+            <em>Geliştirici notu:</em> <code>script.js</code> içinde
+            <code>CAL_USERNAME</code> değerini Cal.com kullanıcı adınla değiştirin.
           </p>
         </div>`;
     }
