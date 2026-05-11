@@ -24,6 +24,7 @@
       <nav class="nav__links" aria-label="Ana menü">
         <a href="#hakkimizda">Hakkımızda</a>
         <a href="#servisler">Servisler</a>
+        <a href="#galeri">Galeri</a>
         <a href="#randevu">Randevu</a>
         <a href="#iletisim">İletişim</a>
       </nav>
@@ -39,7 +40,8 @@
 
   <!-- ============ HERO ============ -->
   <section class="hero" id="top">
-    <div class="hero__grain"></div>
+    <div class="hero__bg" aria-hidden="true"></div>
+    <div class="hero__bg-overlay" aria-hidden="true"></div>
 
     <div class="hero__meta hero__meta--left">
       <span class="hero__meta-line"></span>
@@ -97,27 +99,31 @@
   <!-- ============ ABOUT ============ -->
   <section class="about" id="hakkimizda">
     <div class="container about__grid">
-      <div class="about__left">
+      <div class="about__visual reveal">
+        <div class="about__image about__image--main"></div>
+        <div class="about__image about__image--accent"></div>
+        <div class="about__visual-badge">
+          <span class="about__badge-num">07</span>
+          <span class="about__badge-label">Yıllık<br>Zanaat</span>
+        </div>
+      </div>
+      <div class="about__content">
         <p class="eyebrow reveal">— Hakkımızda</p>
         <h2 class="section-title reveal">
           Yedi yıllık bir <em>zanaat</em>,<br>
           her gün yeniden öğrenilir.
         </h2>
-      </div>
-      <div class="about__right reveal">
-        <p>
-          Atelier, 2019'da küçük bir atölye olarak doğdu. Bugün hâlâ aynı inanca sadığız:
-          bir saç kesimi sadece teknik değil, bir karakter okumasıdır.
-        </p>
-        <p>
-          Çelik makaslar, sıcak havlular, tek kullanımlık usturalar ve her seansa özel
-          hazırlanmış bakım yağları. Detaylar bizim için süs değil — meselenin ta kendisi.
-        </p>
-        <div class="about__stats">
-          <div class="stat">
-            <div class="stat__num">7</div>
-            <div class="stat__label">Yıllık Deneyim</div>
-          </div>
+        <div class="about__text reveal">
+          <p>
+            Atelier, 2019'da küçük bir atölye olarak doğdu. Bugün hâlâ aynı inanca sadığız:
+            bir saç kesimi sadece teknik değil, bir karakter okumasıdır.
+          </p>
+          <p>
+            Çelik makaslar, sıcak havlular, tek kullanımlık usturalar ve her seansa özel
+            hazırlanmış bakım yağları. Detaylar bizim için süs değil — meselenin ta kendisi.
+          </p>
+        </div>
+        <div class="about__stats reveal">
           <div class="stat">
             <div class="stat__num">12K+</div>
             <div class="stat__label">Mutlu Müşteri</div>
@@ -125,6 +131,10 @@
           <div class="stat">
             <div class="stat__num">4.9</div>
             <div class="stat__label">Google Puanı</div>
+          </div>
+          <div class="stat">
+            <div class="stat__num">3</div>
+            <div class="stat__label">Usta Berber</div>
           </div>
         </div>
       </div>
@@ -140,6 +150,14 @@
           Her detayı düşünülmüş<br>
           <em>küçük ritüeller.</em>
         </h2>
+        <!-- Decorative scissors -->
+        <svg class="services__deco" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+          <circle cx="22" cy="68" r="10"/>
+          <circle cx="68" cy="22" r="10"/>
+          <path d="M30 60 L75 15 M70 17 L25 62 M30 60 L82 82 M70 30 L92 52"/>
+          <circle cx="22" cy="68" r="3" fill="currentColor"/>
+          <circle cx="68" cy="22" r="3" fill="currentColor"/>
+        </svg>
       </div>
 
       <div class="services__list">
@@ -238,6 +256,32 @@
             <span class="service__price">₺100</span>
           </div>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GALLERY ============ -->
+  <section class="gallery" id="galeri">
+    <div class="container">
+      <div class="gallery__head">
+        <p class="eyebrow reveal">— Galeri</p>
+        <h2 class="section-title reveal">
+          Eserlerimiz, <em>küçük bir seçki.</em>
+        </h2>
+      </div>
+      <div class="gallery__grid">
+        <figure class="gallery__item gallery__item--1 reveal">
+          <div class="gallery__caption">Klasik Kesim</div>
+        </figure>
+        <figure class="gallery__item gallery__item--2 reveal">
+          <div class="gallery__caption">Ustura Tıraşı</div>
+        </figure>
+        <figure class="gallery__item gallery__item--3 reveal">
+          <div class="gallery__caption">Sakal Şekillendirme</div>
+        </figure>
+        <figure class="gallery__item gallery__item--4 reveal">
+          <div class="gallery__caption">Atölyemiz</div>
+        </figure>
       </div>
     </div>
   </section>
