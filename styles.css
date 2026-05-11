@@ -182,10 +182,34 @@ body::before {
   justify-content: center;
   padding: 8rem 0 6rem;
   overflow: hidden;
+  background: var(--bg-0);
+}
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    /* dark gradient fallback always shows */
+    linear-gradient(135deg, rgba(10, 9, 8, 0.4) 0%, rgba(10, 9, 8, 0.95) 100%),
+    /* main image */
+    url("https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=1800&q=80&auto=format&fit=crop");
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(40%) contrast(1.05);
+  opacity: 0.55;
+  animation: heroBgIn 1.6s 0.2s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+.hero__bg-overlay {
+  position: absolute;
+  inset: 0;
   background:
-    radial-gradient(ellipse at 20% 0%, rgba(200, 163, 115, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 100%, rgba(200, 163, 115, 0.04) 0%, transparent 50%),
-    var(--bg-0);
+    radial-gradient(ellipse at 25% 60%, rgba(200, 163, 115, 0.12) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 100%, rgba(200, 163, 115, 0.06) 0%, transparent 50%),
+    linear-gradient(180deg, rgba(10, 9, 8, 0.5) 0%, rgba(10, 9, 8, 0.4) 60%, rgba(10, 9, 8, 0.9) 100%);
+  pointer-events: none;
+}
+@keyframes heroBgIn {
+  from { opacity: 0; transform: scale(1.05); }
+  to   { opacity: 0.55; transform: scale(1); }
 }
 
 /* Hero side meta */
@@ -370,14 +394,82 @@ section { position: relative; }
 .about {
   padding: 8rem 0;
   background: var(--bg-0);
+  position: relative;
 }
 .about__grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1.1fr;
   gap: 5rem;
-  align-items: start;
+  align-items: center;
 }
-.about__right p {
+
+.about__visual {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  width: 100%;
+}
+.about__image {
+  position: absolute;
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(60%) brightness(0.9) contrast(1.05);
+  transition: filter 0.6s ease;
+}
+.about__image--main {
+  inset: 0;
+  background-color: var(--bg-3); /* fallback */
+  background-image:
+    linear-gradient(135deg, rgba(10,9,8,0.2) 0%, rgba(10,9,8,0.45) 100%),
+    url("https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=1000&q=80&auto=format&fit=crop");
+  border: 1px solid var(--border);
+}
+.about__image--accent {
+  width: 45%;
+  aspect-ratio: 1 / 1;
+  right: -8%;
+  bottom: -8%;
+  background-color: var(--bg-2);
+  background-image:
+    linear-gradient(135deg, rgba(10,9,8,0.15) 0%, rgba(10,9,8,0.4) 100%),
+    url("https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=600&q=80&auto=format&fit=crop");
+  border: 1px solid var(--border-strong);
+  box-shadow: var(--shadow-strong);
+  z-index: 2;
+}
+.about__visual:hover .about__image--main { filter: grayscale(40%) brightness(1) contrast(1.05); }
+
+.about__visual-badge {
+  position: absolute;
+  top: -1.5rem;
+  left: -1.5rem;
+  width: 110px; height: 110px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-0);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  z-index: 3;
+  text-align: center;
+}
+.about__badge-num {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  line-height: 1;
+  font-style: italic;
+  font-weight: 400;
+}
+.about__badge-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-top: 0.5rem;
+  color: var(--text-dim);
+}
+
+.about__text { margin-top: 2rem; }
+.about__text p {
   color: var(--text-dim);
   font-size: 1.05rem;
   line-height: 1.8;
@@ -412,7 +504,24 @@ section { position: relative; }
   background:
     linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 100%);
 }
-.services__head { margin-bottom: 5rem; }
+.services__head {
+  margin-bottom: 5rem;
+  position: relative;
+}
+.services__deco {
+  position: absolute;
+  top: -1rem;
+  right: 0;
+  width: 90px;
+  height: 90px;
+  color: var(--accent);
+  opacity: 0.35;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
+.services__head:hover .services__deco {
+  transform: rotate(15deg);
+  opacity: 0.65;
+}
 .services__list { display: flex; flex-direction: column; }
 
 .service {
@@ -479,6 +588,91 @@ section { position: relative; }
   font-weight: 400;
   color: var(--accent);
   letter-spacing: -0.01em;
+}
+
+/* ============ GALLERY ============ */
+.gallery {
+  padding: 8rem 0;
+  background: var(--bg-0);
+}
+.gallery__head {
+  margin-bottom: 4rem;
+}
+.gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 280px 280px;
+  gap: 1rem;
+}
+.gallery__item {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background-color: var(--bg-2);
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.3, 1), border-color 0.4s ease;
+  cursor: pointer;
+}
+.gallery__item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(10,9,8,0.1) 0%, rgba(10,9,8,0.75) 100%);
+  transition: background 0.5s ease;
+  z-index: 1;
+}
+.gallery__item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--bg-3);
+  background-image: var(--gallery-img);
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(50%) brightness(0.85);
+  transition: filter 0.6s ease, transform 0.8s cubic-bezier(0.2, 0.7, 0.3, 1);
+  z-index: 0;
+}
+.gallery__item:hover { border-color: var(--accent); }
+.gallery__item:hover::after { filter: grayscale(0%) brightness(1); transform: scale(1.08); }
+.gallery__item:hover::before {
+  background: linear-gradient(180deg, rgba(10,9,8,0) 0%, rgba(10,9,8,0.85) 100%);
+}
+
+.gallery__item--1 {
+  grid-column: span 2;
+  grid-row: span 2;
+  --gallery-img: linear-gradient(135deg, rgba(10,9,8,0.1) 0%, rgba(10,9,8,0.3) 100%), url("https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=1200&q=80&auto=format&fit=crop");
+}
+.gallery__item--2 {
+  grid-column: span 2;
+  --gallery-img: linear-gradient(135deg, rgba(10,9,8,0.1) 0%, rgba(10,9,8,0.3) 100%), url("https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=900&q=80&auto=format&fit=crop");
+}
+.gallery__item--3 {
+  --gallery-img: linear-gradient(135deg, rgba(10,9,8,0.1) 0%, rgba(10,9,8,0.3) 100%), url("https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=700&q=80&auto=format&fit=crop");
+}
+.gallery__item--4 {
+  --gallery-img: linear-gradient(135deg, rgba(10,9,8,0.1) 0%, rgba(10,9,8,0.3) 100%), url("https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=700&q=80&auto=format&fit=crop");
+}
+
+.gallery__caption {
+  position: absolute;
+  left: 1.5rem;
+  bottom: 1.25rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.4rem;
+  color: var(--text);
+  z-index: 2;
+  letter-spacing: 0.01em;
+  transition: transform 0.5s ease, color 0.4s ease;
+}
+.gallery__item:hover .gallery__caption {
+  color: var(--accent);
+  transform: translateY(-4px);
 }
 
 /* ============ BOOKING ============ */
@@ -695,8 +889,18 @@ section { position: relative; }
   .hero__title-italic { padding-left: 0; }
 
   .about__grid, .contact__grid { grid-template-columns: 1fr; gap: 3rem; }
+  .about__visual { max-width: 480px; margin: 0 auto; }
   .about__stats { grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
   .booking__info { grid-template-columns: 1fr; }
+
+  .services__deco { width: 60px; height: 60px; top: 0; }
+
+  .gallery__grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 220px 220px 220px;
+  }
+  .gallery__item--1 { grid-column: span 2; grid-row: span 1; }
+  .gallery__item--2 { grid-column: span 2; }
 
   .service {
     grid-template-columns: 50px 1fr;
@@ -718,7 +922,15 @@ section { position: relative; }
 @media (max-width: 480px) {
   .hero__title { font-size: clamp(2.5rem, 14vw, 4.5rem); }
   .about__stats { grid-template-columns: 1fr; }
+  .about__visual-badge { width: 80px; height: 80px; top: -1rem; left: -1rem; }
+  .about__badge-num { font-size: 1.7rem; }
+  .about__badge-label { font-size: 0.55rem; }
   .stat { padding: 1rem 0; border-bottom: 1px solid var(--border); }
+  .gallery__grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 240px);
+  }
+  .gallery__item--1, .gallery__item--2 { grid-column: span 1; }
   .footer__inner { flex-direction: column; text-align: center; }
 }
 
