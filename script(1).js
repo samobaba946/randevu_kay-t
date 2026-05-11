@@ -84,7 +84,7 @@
   //  4. Sayfayı kaydedip GitHub'a push'la.
   // ============================================================
 
-  const CAL_USERNAME = 'kullanici-adin';   // <-- DEĞİŞTİR
+  const CAL_USERNAME = 'sami-yusuf-mutlu-cbr6mo';   // <-- DEĞİŞTİR
   const CAL_EVENT    = 'randevu';          // <-- DEĞİŞTİR
 
   (function initCal(C, A, L) {
