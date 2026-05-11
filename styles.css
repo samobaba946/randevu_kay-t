@@ -710,6 +710,62 @@ section { position: relative; }
   pointer-events: none;
 }
 
+/* Fallback shown when Cal.com isn't configured / fails to load */
+.cal-fallback {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 4rem 1.5rem;
+  min-height: 720px;
+  justify-content: center;
+}
+.cal-fallback__icon {
+  width: 80px; height: 80px;
+  display: grid; place-items: center;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  margin-bottom: 2rem;
+}
+.cal-fallback__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-style: italic;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+.cal-fallback__text {
+  color: var(--text-dim);
+  max-width: 480px;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+.cal-fallback__actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+.cal-fallback__note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  max-width: 460px;
+  line-height: 1.6;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+.cal-fallback__note em { color: var(--accent); font-style: italic; }
+.cal-fallback__note code {
+  background: var(--bg-3);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 0.85em;
+  color: var(--text);
+}
+
 .booking__info {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -845,19 +901,24 @@ section { position: relative; }
 .footer__credit { font-style: italic; }
 
 /* ============ REVEAL ANIMATIONS ============ */
+/* Progressive enhancement: content visible by default.
+   Only hidden + animated when JS confirms it's running (.js-ready class). */
 .reveal {
+  opacity: 1;
+  transform: none;
+}
+html.js-ready .reveal {
   opacity: 0;
   transform: translateY(28px);
   transition: opacity 1s cubic-bezier(0.2, 0.7, 0.3, 1), transform 1s cubic-bezier(0.2, 0.7, 0.3, 1);
 }
-.reveal.is-visible {
+html.js-ready .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
-/* Stagger children inside a reveal-parent if needed via inline delays applied in JS */
 
 /* Hero specifically — load animation rather than scroll */
-.hero .reveal { opacity: 0; transform: translateY(30px); }
+html.js-ready .hero .reveal { opacity: 0; transform: translateY(30px); }
 .hero.is-loaded .hero__eyebrow { animation: heroIn 1s 0.1s forwards cubic-bezier(0.2, 0.7, 0.3, 1); }
 .hero.is-loaded .hero__title span:nth-child(1) { animation: heroIn 1.1s 0.25s forwards cubic-bezier(0.2, 0.7, 0.3, 1); }
 .hero.is-loaded .hero__title span:nth-child(2) { animation: heroIn 1.1s 0.45s forwards cubic-bezier(0.2, 0.7, 0.3, 1); }
