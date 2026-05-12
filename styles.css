@@ -772,6 +772,34 @@ section { position: relative; }
   gap: 2rem;
   margin-top: 3rem;
 }
+
+/* Always-visible direct booking fallback */
+.booking__direct {
+  margin-top: 2rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, var(--bg-2) 0%, var(--bg-3) 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.booking__direct::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+.booking__direct-text {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  max-width: 540px;
+}
 .booking__info-item {
   display: flex;
   gap: 1rem;
