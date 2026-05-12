@@ -77,30 +77,9 @@
   }
 
   // ============================================================
-  //  CAL.COM IFRAME EMBED
-  //  -----------------------------------------------------------
-  //  En basit ve güvenilir yöntem: doğrudan iframe.
-  //  Sadece kullanıcı adı + event slug'ı değiştir.
+  //  CAL.COM EMBED artık index.html içinde, doğrudan Cal.com'un
+  //  resmi kodu kullanılıyor. Burada ek bir şey yapmaya gerek yok.
   // ============================================================
-
-  const CAL_USERNAME = 'sami-yusuf-mutlu-cbr6mo';   // Cal.com kullanıcı adın
-  const CAL_EVENT    = 'randevu';                    // Cal.com event slug
-
-  const calTarget = document.getElementById('cal-inline');
-  if (calTarget) {
-    const calUrl = `https://cal.com/${CAL_USERNAME}/${CAL_EVENT}?embed=true&theme=dark`;
-    calTarget.innerHTML = `
-      <iframe
-        src="${calUrl}"
-        width="100%"
-        height="720"
-        frameborder="0"
-        style="border: 0; min-height: 720px; width: 100%; display: block;"
-        title="Atelier Randevu Sistemi"
-        allow="payment; clipboard-write"
-        loading="lazy">
-      </iframe>`;
-  }
 
   // ----- Anchor smooth scroll offset for sticky nav -----
   document.querySelectorAll('a[href^="#"]').forEach(a => {
